@@ -1,0 +1,87 @@
+# A substation group has substations and workers
+type SubstationGroup {
+  id: ID!
+  name: String!
+  substantions: [Substation]
+  feedingnodes: [Substation]
+  headofthedepartment: [Employee]
+  employees: [Employee]
+}
+
+# A substation has a name, connections and power transformers
+type Substation {
+  id: ID!
+  name: String!
+  specs: String
+  connections750: [Connection]
+  connections330: [Connection]
+  connections110: [Connection]
+  connections35: [Connection]
+  connections10: [Connection]
+  connections04: [Connection]
+  powertransformers: [Transformer]
+}
+
+# A power transformer has high voltage switches
+type Transformer {
+  id: ID!
+  ttype: String!
+  productiondate: Int
+  voltageclass: Int!
+  connectiontype: String!
+  highvoltageswitches: [HVSwitch]
+  autandind: String
+}
+
+# Every connection/line has destination and its own high voltage switches
+type Connection {
+  id: ID!
+  voltageclass: Int!
+  destination: [Substantion]
+  highvoltageswitches: [HVSwitch]
+  autandind: String
+}
+
+# A high voltage switch has its own protection and automation
+type HVSwitch {
+  id: ID!
+  ttype: String!
+  serialnumber: Int!
+  productiondate: Int
+  voltageclass: Int!
+  powersystemprotection: [PSProtection]
+  address: String!
+  autandind: String!
+}
+
+# A power system protection has units
+type PSProtection {
+  id: ID!
+  systems: [System]
+  address: String!
+  autandind: String!
+}
+
+# A protection system has units
+type System {
+  id: ID!
+  ttype: String!
+  serialnumber: Int!
+  productiondate: Int
+  cycle: Int!
+  address: String!
+  autandind: String!
+}
+
+# Every employee has an access degree and a tbgroup
+type Employee {
+  id: ID!
+  name: String!
+  dateofbirth: String!
+  substationgroup: [SubstationGroup] 
+  head: Boolean!
+  phonenumber: String!
+  address: String!
+  access: [Substantion]
+  tbgroup: Int!
+}
